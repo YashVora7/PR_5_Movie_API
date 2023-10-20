@@ -1,14 +1,21 @@
 const {Router}=require("express")
-const { createmovie, deletemovie,  } = require("../controllers/movie.controller")
+const { createmovie, deletemovie, updatemovie, ratingmovie, commentmovie, filtermovie,  } = require("../controllers/movie.controller")
 const { checkmovie } = require("../middlewares/movie.middleware")
-const router=Router()
+const movie=Router()
 
-router.get("/",(req,res)=>{
+movie.get("/",(req,res)=>{
     res.status(200).send("Welcome to the movie API")
 })
-router.post("/movie/create",checkmovie,createmovie)
-// router.post("/user/login",loginuser)
-router.delete("/movie/delete/:id",deletemovie)
-// router.get("/user/",userdata)
+movie.delete("/movie/delete/:id",deletemovie)
 
-module.exports=router
+movie.post("/movie/create",checkmovie, createmovie)
+
+movie.patch("/movie/update/:id",updatemovie)
+
+movie.patch("/movie/rating/:id",ratingmovie)
+
+movie.patch("/movie/comment/:id", commentmovie)
+
+movie.get("/movie/filter",filtermovie)
+
+module.exports=movie
